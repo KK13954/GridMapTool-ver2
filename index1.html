@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>グリッド変換ツール Ver 2</title>
+  <link rel="stylesheet" href="style1.css" />
+</head>
+<body>
+  <div id="auth-overlay" class="auth-overlay">
+    <div class="auth-card">
+      <h2>パスワード認証</h2>
+      <p>ツールを起動するにはパスワードを入力してください。</p>
+      <input id="password-input" type="password" placeholder="パスワードを入力" />
+      <button id="unlock-button">開く</button>
+      <p class="auth-error" id="auth-error"></p>
+    </div>
+  </div>
+
+  <div class="app-shell hidden">
+    <aside class="control-panel">
+      <h1>グリッド可視化ツール②</h1>
+      
+      <div class="control-group">
+        <label for="origin-input">出発地</label>
+        <input id="origin-input" type="text" placeholder="出発地を入力" />
+      </div>
+      
+      <div class="control-group">
+        <label for="destination-input">目的地</label>
+        <input id="destination-input" type="text" placeholder="目的地を入力" />
+      </div>
+      
+      <div class="control-group">
+        <button id="search-route">経路検索</button>
+      </div>
+      
+      <div class="info-box">
+        <label>経路情報</label>
+        <p class="info-label">総距離 / 所要時間 (ETA)</p>
+        <div id="route-info" class="route-info-display">経路検索後に表示されます</div>
+        <p class="info-note">所要時間・距離は検索で取得した経路に沿った値です。</p>
+      </div>
+      
+      <div class="control-group">
+        <label for="grid-ratio">グリッド割合</label>
+        <select id="grid-ratio">
+          <option value="0">なし</option>
+          <option value="0.5">0.5%</option>
+          <option value="1">1%</option>
+          <option value="2.5">2.5%</option>
+          <option value="5">5%</option>
+          <option value="10">10%</option>
+        </select>
+      </div>
+      
+      <div class="info-box">
+        <label>グリッドサイズ</label>
+        <p class="info-label">現在のグリッド1辺の長さ</p>
+        <div id="grid-size-display" class="grid-size-display">選択後に計算されます</div>
+        <p class="info-note">グリッドサイズは経路の総距離 × 割合(%) ÷ 100 で計算されます。</p>
+      </div>
+      
+      <p class="note">地図を移動・ズームすると、表示領域に合わせてグリッドが再描画されます。</p>
+    </aside>
+    
+    <main class="map-area">
+      <div id="map"></div>
+    </main>
+  </div>
+
+  <div id="map-error" class="map-error hidden">
+    <div class="map-error-card">
+      <h2>Google マップの読み込みに失敗しました</h2>
+      <p id="map-error-text">APIキー、APIの有効化、またはアクセス制限を確認してください。</p>
+    </div>
+  </div>
+
+  <script src="script1.js"></script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuKx0nJOW73Y2GKnRUD-SJF1W4zc1soiE&libraries=places&callback=initMap&v=weekly&language=ja&loading=async"
+    onerror="onMapsApiLoadError()">
+  </script>
+</body>
+</html>
